@@ -63,10 +63,22 @@ const destroyIdCategories = async (req) => {
 };
 
 
+const checkingCategories = async (id) => {
+    
+    const check = await Categories.findOne({_id : id})
+    console.log(check)
+
+    if(!check) throw new NotFoundError(`Tidak ada Kategori dengan id ${id}`)
+
+    return check
+
+}
+
 module.exports = {
     indexCategories,
     createCategories,
     findIdCategories,
     destroyIdCategories,
-    updateIdCategories
+    updateIdCategories,
+    checkingCategories,
 }
