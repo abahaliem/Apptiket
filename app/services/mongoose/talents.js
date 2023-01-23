@@ -79,6 +79,7 @@ const getOneIdTalents = async (req) => {
      return result
 }
 
+
 const deleteTalents = async (req) => {
     const {id} = req.params;
 

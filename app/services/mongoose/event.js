@@ -85,6 +85,30 @@ const createEvent = async (req) => {
     return result;
 }
 
+const getIdEvents = async (req) => {
+    const {id} = req.params;
+    const result = await Events.findOne({_id : id})
+    .populate({
+        path : 'category',
+        select : '_id name',
+    })
+    .populate({
+        path : 'talent',
+        select : '_id name role image',
+        populate: {
+            path: 'image', 
+            select : '_id urlName'
+        },
+    })
+
+    
+    if (!result) throw new NotFoundError(`Tidak ada Event dengan id : ${id}`)
+   
+    console.log(result)
+    return getIdEvents;
+
+}
+
 const deleteEvents = async (req) => {
     const {id} = req.params;
 
@@ -101,4 +125,5 @@ module.exports = {
     createEvent,
     getAllEvents,
     deleteEvents,
+    getIdEvents,
 }

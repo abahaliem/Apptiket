@@ -3,7 +3,7 @@ const {
     createEvent,
     getAllEvents,
     deleteEvents,
-    
+    getIdEvents
     } = require('../../../services/mongoose/event');
 
 
@@ -32,6 +32,26 @@ const create = async (req, res, next) => {
   }
 }
 
+
+const find = async (req, res, next) => {
+    try {
+      const result = await getIdEvents(req);
+  
+      res.status(StatusCodes.OK).json({
+        data: result,
+      });
+
+      console.log(result)
+    } catch (err) {
+      next(err);
+      
+    }
+  };
+
+ 
+
+
+
 const destroyEvents = async (req, res, next) => {
     try {
         const result = await deleteEvents(req);
@@ -44,8 +64,10 @@ const destroyEvents = async (req, res, next) => {
     }
 }
 
+
 module.exports = {
     create,
     indexEvents,
     destroyEvents,
+    find,
 }
